@@ -29,7 +29,7 @@ class CloudinaryMediaService
             throw new RuntimeException('Cloudinary n’a pas retourné une URL sécurisée pour le fichier envoyé.');
         }
 
-        return $url;
+        return $this->optimizedDeliveryUrl($url, $file);
     }
 
     public function delete(?string $path): void
@@ -76,5 +76,18 @@ class CloudinaryMediaService
             'public_id' => $publicId,
             'resource_type' => $resourceType,
         ];
+    }
+
+    private function optimizedDeliveryUrl(string $url, UploadedFile $file): string
+    {
+        if (! str_starts_with((string) $file->getMimeType(), 'image/')) {
+            return $url;
+        }
+
+        return str_replace(
+            '/image/upload/',
+            '/image/upload/f_auto,q_auto,w_1200,c_limit/',
+            $url
+        );
     }
 }
