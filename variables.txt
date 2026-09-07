@@ -17,11 +17,11 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=error
 
 DB_CONNECTION=pgsql
-DB_HOST=your-postgres-host
+DB_HOST=db-portfolio-db-6a9f2fe4
 DB_PORT=5432
-DB_DATABASE=your-production-database
-DB_USERNAME=your-production-user
-DB_PASSWORD=your-production-password
+DB_DATABASE=portfolio-db
+DB_USERNAME=postgres
+DB_PASSWORD=82uyRNzQx3EHKgqGA5_I3WJk
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=120
