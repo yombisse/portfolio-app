@@ -99,6 +99,10 @@ COPY --from=vendor /app ./
 # ============================================================
 COPY --from=assets /app/public/build ./public/build
 
+# Démarrage : migrations, seeders et serveur Apache
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 
 # ============================================================
 # 7. Préparer les répertoires nécessaires à Laravel
@@ -126,4 +130,4 @@ EXPOSE 80
 # ============================================================
 # 9. Démarrage Apache
 # ============================================================
-CMD ["apache2-foreground"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
