@@ -120,7 +120,7 @@
         <section id="competences" class="section">
             <div class="container">
                 <p class="section-label">SKILLS</p>
-                <h2>Technologies</h2>
+                <h2>Compétences</h2>
                 <div class="skill-grid">
                     @foreach($competences as $competence)
                         <div class="skill-card">

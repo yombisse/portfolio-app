@@ -13,6 +13,16 @@
         </div>
 
         <div class="flex items-center gap-3">
+            <button type="button" class="theme-toggle" data-theme-toggle aria-label="Activer le thème clair" title="Activer le thème clair">
+                <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
+                </svg>
+                <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"></path>
+                </svg>
+                <span class="sr-only" data-theme-label>Activer le thème clair</span>
+            </button>
             @auth
                 <a href="{{ route('admin.dashboard') }}" class="rounded-full border border-accent/60 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition hover:bg-accent/20">
                     Admin

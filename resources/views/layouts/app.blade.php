@@ -7,6 +7,10 @@
 
         <title>@yield('title', 'Portfolio')</title>
 
+        <script>
+            document.documentElement.classList.toggle('theme-light', localStorage.getItem('portfolio-theme') === 'light');
+        </script>
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
 
