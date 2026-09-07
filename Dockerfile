@@ -40,7 +40,7 @@ RUN npm run build
 # ============================================================
 # 3. Image finale PHP + Apache
 # ============================================================
-FROM php:8.3-apache
+FROM php:8.4-apache
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
