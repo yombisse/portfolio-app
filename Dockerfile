@@ -1,15 +1,17 @@
 
 # ============================================================
-# 1. Installation des dépendances PHP
+# 1. Installation des dépendances PHP avec Composer
 # ============================================================
 FROM composer:2 AS vendor
 
 WORKDIR /app
 
-# Copier tout le projet pour que Laravel puisse exécuter
-# artisan pendant composer install
+# Copier tout le projet
+# Nécessaire car Composer exécute :
+# php artisan package:discover
 COPY . .
 
+# Installation des dépendances PHP
 RUN composer install \
     --no-dev \
     --no-interaction \
@@ -19,32 +21,40 @@ RUN composer install \
 
 
 # ============================================================
-# 2. Build des assets Vite / Tailwind
+# 2. Compilation des assets Vite / Tailwind
 # ============================================================
 FROM node:22-alpine AS assets
 
 WORKDIR /app
 
+# Copier les fichiers npm
 COPY package.json package-lock.json ./
 
+# Installer les dépendances Node
 RUN npm ci
 
+# Copier les ressources nécessaires au build
 COPY resources ./resources
 COPY public ./public
 
+# Configuration Vite / Tailwind
 COPY tailwind.config.js postcss.config.js vite.config.js ./
 
+# Compiler les assets
 RUN npm run build
 
 
 # ============================================================
-# 3. Image finale PHP + Apache
+# 3. Image finale : PHP 8.4 + Apache
 # ============================================================
-FROM php:8.3-apache
+FROM php:8.4-apache
 
+# Document root Apache
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
-# Installation des extensions nécessaires à Laravel
+# ============================================================
+# Installation des dépendances système et extensions PHP
+# ============================================================
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libfreetype6-dev \
@@ -73,25 +83,25 @@ RUN apt-get update \
 
 
 # ============================================================
-# 4. Configuration du répertoire de travail
+# 4. Répertoire de travail Laravel
 # ============================================================
 WORKDIR /var/www/html
 
 
 # ============================================================
-# 5. Copier le projet Laravel
+# 5. Copier l'application Laravel
 # ============================================================
 COPY --from=vendor /app ./
 
 
 # ============================================================
-# 6. Copier les assets compilés
+# 6. Copier les assets compilés par Vite
 # ============================================================
 COPY --from=assets /app/public/build ./public/build
 
 
 # ============================================================
-# 7. Préparer les répertoires Laravel
+# 7. Préparer les répertoires nécessaires à Laravel
 # ============================================================
 RUN mkdir -p \
         storage/framework/cache \
