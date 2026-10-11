@@ -1,0 +1,59 @@
+# Variables a configurer dans l'environnement de production du portfolio.
+# Remplacer les valeurs indiquees avant le deploiement.
+# Ne pas publier les mots de passe ni la cle APP_KEY dans Git.
+
+APP_NAME="Portfolio Fandie Yombisse"
+APP_ENV=production
+APP_KEY=base64:ijL6fGYxq/Frl7J0XOdLYzEFVjCm87QdCK/t1uSZ5Bc=
+APP_DEBUG=false
+APP_URL=https://votre-domaine.tld
+APP_LOCALE=fr
+APP_FALLBACK_LOCALE=fr
+APP_FAKER_LOCALE=fr_FR
+FORCE_HTTPS=true
+
+LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_LEVEL=warning
+
+# PostgreSQL
+DB_CONNECTION=pgsql
+DB_HOST=db-portfolio-db-6a9f2fe4
+DB_PORT=5432
+DB_DATABASE=portfolio-db
+DB_USERNAME=postgres
+DB_PASSWORD=PtuqRNn1RKJ16a2YcbIWibYG
+DB_SSLMODE=require
+
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=true
+SESSION_PATH=/
+SESSION_DOMAIN=votre-domaine.tld
+SESSION_SECURE_COOKIE=true
+SESSION_HTTP_ONLY=true
+SESSION_SAME_SITE=lax
+
+CACHE_STORE=database
+QUEUE_CONNECTION=database
+FILESYSTEM_DISK=local
+
+# Compte administrateur cree/mis a jour par le seeder.
+ADMIN_NAME="FANDIE YOMBISSE"
+ADMIN_EMAIL=yombissefandie@gmail.com
+ADMIN_PASSWORD=@dmin06
+
+# SMTP - renseigner selon le fournisseur mail.
+MAIL_MAILER=smtp
+MAIL_SCHEME=tls
+MAIL_HOST=
+MAIL_PORT=587
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_FROM_ADDRESS=
+MAIL_FROM_NAME="${APP_NAME}"
+
+# Variables lues par docker-entrypoint.sh.
+RUN_MIGRATIONS=true
+RUN_SEEDERS=true
+

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil')
+@section('title', ($profile?->nom ?? 'Fandie Yombissé').' | Développeur logiciel')
+@section('description', 'Portfolio de '.($profile?->nom ?? 'Fandie Yombissé').', développeur logiciel : compétences, expérience et projets web avec Laravel, PHP, React et Vue.js.')
+@section('keywords', 'Fandie Yombissé, développeur logiciel, développeur web, portfolio développeur, Laravel, PHP, React, Vue.js, PostgreSQL, Tailwind CSS')
 
 @section('content')
     <section class="hero personal-hero">
