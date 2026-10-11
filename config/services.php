@@ -2,8 +2,10 @@
 
 return [
 
-    'cloudinary' => [
-        'url' => env('CLOUDINARY_URL'),
+    'admin' => [
+        'name' => env('ADMIN_NAME', 'FANDIE YOMBISSE'),
+        'email' => env('ADMIN_EMAIL', 'yombissefandie@gmail.com'),
+        'password' => env('ADMIN_PASSWORD'),
     ],
 
     /*

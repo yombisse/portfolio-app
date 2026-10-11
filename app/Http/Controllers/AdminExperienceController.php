@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Experience;
-use App\Services\CloudinaryMediaService;
+use App\Services\LocalMediaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class AdminExperienceController extends Controller
 {
     public function __construct(
-        private CloudinaryMediaService $mediaService
+        private LocalMediaService $mediaService
     ) {}
 
     public function index(): View

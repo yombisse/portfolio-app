@@ -53,6 +53,16 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## Uploaded media
+
+Uploaded images and documents are stored on Laravel's `public` disk under `storage/app/public`. Run `php artisan storage:link` outside Docker to make them accessible from `public/storage`; the Docker entrypoint creates this link automatically.
+
+Existing database records that contain remote URLs are left unchanged and continue to reference those files. They are not copied to local storage automatically.
+
+## Administrator account
+
+Set `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` in the local environment before running `php artisan db:seed`. The password is intentionally not included in the repository; the seeder fails explicitly if it is missing. The default administrator name and email are `FANDIE YOMBISSE` and `yombissefandie@gmail.com`.
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

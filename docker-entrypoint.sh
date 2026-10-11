@@ -4,6 +4,8 @@ set -e
 
 cd /var/www/html
 
+php artisan storage:link
+
 if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
     attempts=0
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
-use App\Services\CloudinaryMediaService;
+use App\Services\LocalMediaService;
 use App\Services\PortfolioService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class AdminProfileController extends Controller
 {
     public function __construct(
         protected PortfolioService $portfolioService,
-        private CloudinaryMediaService $mediaService
+        private LocalMediaService $mediaService
     ) {}
 
     public function edit(): View

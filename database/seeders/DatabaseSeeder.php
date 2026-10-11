@@ -6,7 +6,7 @@ use App\Models\Competence;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+use RuntimeException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,14 +17,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@portfolio.test')],
-            [
-                'name' => 'Admin Portfolio',
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'password123')),
-                'email_verified_at' => now(),
-            ]
-        );
+        $name = config('services.admin.name');
+        $email = config('services.admin.email');
+        $password = config('services.admin.password');
+
+        if (! is_string($name) || trim($name) === ''
+            || ! is_string($email) || trim($email) === ''
+            || ! is_string($password) || $password === '') {
+            throw new RuntimeException('Configurez ADMIN_NAME, ADMIN_EMAIL et ADMIN_PASSWORD avant de lancer les seeders.');
+        }
+
+        $admin = User::query()->where('email', $email)->first()
+            ?? User::query()->where('email', 'admin@portfolio.test')->first()
+            ?? new User;
+
+        $admin->forceFill([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'email_verified_at' => now(),
+        ])->save();
 
         $technologies = [
             ['nom' => 'Laravel', 'niveau' => 'expert'],

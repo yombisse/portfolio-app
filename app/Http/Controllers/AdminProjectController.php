@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Competence;
 use App\Models\Project;
-use App\Services\CloudinaryMediaService;
+use App\Services\LocalMediaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 class AdminProjectController extends Controller
 {
     public function __construct(
-        private CloudinaryMediaService $mediaService
+        private LocalMediaService $mediaService
     ) {}
 
     public function index(): View
