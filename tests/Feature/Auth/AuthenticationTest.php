@@ -17,6 +17,26 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_login_validation_errors_are_displayed_below_their_fields(): void
+    {
+        $response = $this->from(route('login'))
+            ->followingRedirects()
+            ->post(route('login'), [
+                'email' => 'invalid-email',
+                'password' => '',
+            ]);
+
+        $response->assertOk();
+        $response->assertSeeInOrder([
+            'name="email"',
+            'id="email-error"',
+            trans('validation.email', ['attribute' => 'email']),
+            'name="password"',
+            'id="password-error"',
+            trans('validation.required', ['attribute' => 'password']),
+        ], false);
+    }
+
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
         $user = User::factory()->create();
