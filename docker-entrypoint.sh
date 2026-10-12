@@ -6,24 +6,28 @@ cd /var/www/html
 
 php artisan storage:link
 
-if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
-    attempts=0
+if [ "${RUN_FRESH_MIGRATIONS:-false}" = "true" ]; then
+    php artisan migrate:fresh --seed --force
+else
+    if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
+        attempts=0
 
-    until php artisan migrate --force; do
-        attempts=$((attempts + 1))
+        until php artisan migrate --force; do
+            attempts=$((attempts + 1))
 
-        if [ "$attempts" -ge 10 ]; then
-            echo "Unable to connect to the database after ${attempts} attempts." >&2
-            exit 1
-        fi
+            if [ "$attempts" -ge 10 ]; then
+                echo "Unable to connect to the database after ${attempts} attempts." >&2
+                exit 1
+            fi
 
-        echo "Database is not ready. Retrying in 5 seconds..." >&2
-        sleep 5
-    done
-fi
+            echo "Database is not ready. Retrying in 5 seconds..." >&2
+            sleep 5
+        done
+    fi
 
-if [ "${RUN_SEEDERS:-true}" = "true" ]; then
-    php artisan db:seed --force
+    if [ "${RUN_SEEDERS:-true}" = "true" ]; then
+        php artisan db:seed --force
+    fi
 fi
 
 php artisan config:cache

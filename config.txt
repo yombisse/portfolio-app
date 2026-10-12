@@ -56,4 +56,9 @@ MAIL_FROM_NAME="${APP_NAME}"
 # Variables lues par docker-entrypoint.sh.
 RUN_MIGRATIONS=true
 RUN_SEEDERS=true
+RUN_FRESH_MIGRATIONS=false
 
+# Utiliser RUN_FRESH_MIGRATIONS=true pour le seul deploiement ou la base doit
+# etre recreee integralement. Cette operation efface toutes les donnees.
+# Le repasser a false apres ce deploiement pour eviter une nouvelle suppression
+# lors d'un redemarrage ou d'un deploiement ulterieur.
