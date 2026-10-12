@@ -7,7 +7,7 @@
         <p class="text-sm leading-6 text-slate-400">Connectez-vous pour accéder à votre espace d’administration.</p>
     </div>
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-5">
+    <form method="POST" action="{{ route('login') }}" class="space-y-5" novalidate>
         @csrf
 
         <div class="space-y-2">

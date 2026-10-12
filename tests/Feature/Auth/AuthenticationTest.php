@@ -17,6 +17,16 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_login_page_sets_a_host_only_session_cookie(): void
+    {
+        $response = $this->get('/login');
+        $sessionCookie = collect($response->headers->getCookies())
+            ->first(fn ($cookie) => $cookie->getName() === config('session.cookie'));
+
+        $this->assertNotNull($sessionCookie);
+        $this->assertNull($sessionCookie->getDomain());
+    }
+
     public function test_login_validation_errors_are_displayed_below_their_fields(): void
     {
         $response = $this->from(route('login'))
